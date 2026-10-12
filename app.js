@@ -1,9 +1,9 @@
 (() => {
   'use strict';
-  const STORAGE_KEY = 'havarix-rental-questionnaire-v4';
+  const STORAGE_KEY = 'havarix-rental-questionnaire-v5';
   const groups = window.HAVARIX_GROUPS, questions = window.HAVARIX_QUESTIONS;
   const DB = window.HAVARIX_DB || '';
-  const EXCLUSIVE = ['Ne','Vůbec ne','Žádná','Nijak','Vůbec neřešit na webu','Zatím nevím'];
+  const EXCLUSIVE = ['Ne','Vůbec ne','Žádná','Nijak','Vůbec neřešit na webu','Zatím nevím','Zatím nemáme nic','Pouze čeština'];
 
   const $ = (s) => document.querySelector(s);
   const els = {
