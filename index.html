@@ -32,7 +32,7 @@
         <div class="hero-copy">
           <div class="eyebrow">PLÁNOVÁNÍ PŮJČOVNY</div>
           <h1>Dotazník pro<br><span>návrh půjčovny</span></h1>
-          <p>Vyplňte 39 otázek online a pomozte nám navrhnout web a půjčovní systém přesně podle vašeho reálného provozu. Odpovědi se průběžně ukládají v tomto zařízení.</p>
+          <p>Vyplňte 39 otázek online a pomozte nám navrhnout web a půjčovní systém přesně podle vašeho reálného provozu. Odpovědi se průběžně ukládají a odesílají nám, nic není potřeba posílat ručně.</p>
           <div class="hero-actions">
             <a href="#questionnaire" class="btn btn-red">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h6M9 13h8M9 17h8M9 9h3"/></svg>
@@ -151,8 +151,8 @@
     <section id="finishPanel" class="finish-panel hidden" aria-live="polite">
       <div class="finish-card">
         <div class="finish-badge">DOKONČENO</div>
-        <h2>Děkujeme. Zbývá nám odpovědi poslat.</h2>
-        <p>Odpovědi zůstávají uložené v tomto prohlížeči. Stáhněte si je prosím níže a pošlete nám je jako soubor — samy se neodesílají.</p>
+        <h2>Děkujeme. Odpovědi máme.</h2>
+        <p>Odpovědi se nám průběžně odesílají a kdykoli se k nim můžete vrátit a upravit je. Pro vlastní potřebu si je můžete níže stáhnout nebo vytisknout.</p>
         <div class="client-grid">
           <label>Firma / jméno<input id="clientName" type="text" autocomplete="organization" placeholder="Např. ABC Stavby s.r.o." /></label>
           <label>E-mail<input id="clientEmail" type="email" autocomplete="email" placeholder="vas@email.cz" /></label>
@@ -177,6 +177,8 @@
     </div>
   </footer>
 
+  <script src="data.js"></script>
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

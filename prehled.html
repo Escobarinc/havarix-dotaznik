@@ -1,0 +1,61 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#071727"><title>HAVARIX – přehled odpovědí</title>
+<style>
+:root{--navy:#071727;--red:#e5262b;--ink:#0d1b2a;--muted:#667487;--line:#e3e8ee;--bg:#f3f6f9;--card:#fff;--ok:#11a36a;--skip:#b26a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.top{background:var(--navy);color:#fff}.top div{max-width:980px;margin:0 auto;padding:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.top strong{font-size:20px;letter-spacing:.5px}.top strong span{color:var(--red)}.top h1{font-size:16px;font-weight:500;margin:0;opacity:.85}
+.live{margin-left:auto;font-size:13px;display:flex;align-items:center;gap:6px;opacity:.85}.dot{width:9px;height:9px;border-radius:50%;background:#8896a6}.dot.on{background:#11c882}.dot.err{background:var(--red)}
+main{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px;margin-bottom:16px}
+.big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.big strong{font-size:40px;color:var(--red)}.big span{color:var(--muted)}
+.bar{height:10px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0}.bar i{display:block;height:100%;background:var(--red);width:0;transition:width .4s}
+.counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.counts div{background:var(--bg);border-radius:4px;padding:10px;text-align:center}.counts b{display:block;font-size:22px}
+.last{margin:14px 0 0;font-size:14px;color:var(--muted)}
+h2{font-size:16px;margin:0 0 10px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.filters button{border:1px solid var(--line);background:#fff;border-radius:4px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}.filters button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+details{border-top:1px solid var(--line)}details:first-of-type{border-top:0}summary{cursor:pointer;padding:10px 0;display:flex;gap:10px;list-style:none;font-weight:600}summary::-webkit-details-marker{display:none}summary small{margin-left:auto;color:var(--muted);font-weight:400;white-space:nowrap}
+.row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:start}
+.id{color:var(--muted);font-variant-numeric:tabular-nums}.st{font-weight:700;font-size:12px;white-space:nowrap;text-align:right}.ok{color:var(--ok)}.skip{color:var(--skip)}.none{color:#9aa6b4;font-weight:400}
+.when{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.ans{grid-column:2/4;background:var(--bg);border-left:3px solid var(--red);padding:6px 10px;font-size:14px;white-space:pre-wrap;word-break:break-word}
+.empty{color:var(--muted)}
+@media(max-width:560px){.big strong{font-size:32px}}
+</style></head><body>
+<header class="top"><div><strong>HAVARI<span>X</span></strong><h1>Přehled odpovědí</h1><div class="live"><span class="dot" id="dot"></span><span id="live">Načítám…</span></div></div></header>
+<main>
+<section class="card"><div class="big"><strong id="pct">0 %</strong><span id="done">0 z 0 otázek</span></div><div class="bar"><i id="fill"></i></div>
+<div class="counts"><div><b class="ok" id="c-ok">0</b>Zodpovězeno</div><div><b class="skip" id="c-skip">0</b>Přeskočeno</div><div><b id="c-left">0</b>Zbývá</div></div><p class="last" id="last"></p></section>
+<section class="card"><h2>Poslední odpovědi</h2><div id="recent"><p class="empty">Zatím nic.</p></div></section>
+<section class="card"><h2>Všechny otázky podle sekcí</h2><div class="filters" id="filters"><button data-f="all" class="on">Vše</button><button data-f="ok">Zodpovězeno</button><button data-f="skip">Přeskočeno</button><button data-f="none">Nevyplněno</button></div><div id="groups"></div></section>
+</main>
+<script src="data.js"></script><script src="config.js"></script>
+<script>
+(()=>{'use strict';
+const groups=window.HAVARIX_GROUPS||[],questions=window.HAVARIX_QUESTIONS||[],DB=window.HAVARIX_DB;const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let answers={},filter='all',closed=new Set(),last='';
+const when=t=>{if(!t)return'';const d=new Date(t);return d.toLocaleString('cs-CZ',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'})};
+const status=n=>{const a=answers[n]?.answer;return !a||a==='NEZODPOVĚZENO'?'none':a==='PŘESKOČENO'?'skip':'ok'};
+const LABEL={ok:'✓ ZODPOVĚZENO',skip:'– PŘESKOČENO',none:'nevyplněno'};
+const row=n=>{const s=status(n),a=answers[n];return `<div class="row"><span class="id">${n}.</span><span>${esc(questions[n-1].title)}</span><span class="st ${s}">${LABEL[s]}${s!=='none'?`<span class="when">${when(a.changedAt)}</span>`:''}</span>${s==='ok'?`<div class="ans">${esc(a.answer)}</div>`:''}</div>`};
+function render(){
+  const all=questions.map((_,i)=>i+1),total=all.length;const ok=all.filter(n=>status(n)==='ok').length,skip=all.filter(n=>status(n)==='skip').length;const pct=total?Math.round(ok/total*100):0;
+  $('pct').textContent=pct+' %';$('done').textContent=`${ok} z ${total} otázek zodpovězeno`;$('fill').style.width=pct+'%';$('c-ok').textContent=ok;$('c-skip').textContent=skip;$('c-left').textContent=total-ok-skip;
+  const touched=all.filter(n=>answers[n]?.changedAt).sort((a,b)=>answers[b].changedAt.localeCompare(answers[a].changedAt));
+  $('last').textContent=touched.length?`Poslední aktivita klienta: ${when(answers[touched[0]].changedAt)} (otázka ${touched[0]})`:'Klient zatím nezačal vyplňovat.';
+  const recent=touched.filter(n=>status(n)!=='none').slice(0,8);$('recent').innerHTML=recent.length?recent.map(row).join(''):'<p class="empty">Zatím nic.</p>';
+  $('groups').innerHTML=groups.map((g,gi)=>{const list=all.filter(n=>n-1>=g.start&&n-1<=g.end);const d=list.filter(n=>status(n)==='ok').length;const shown=list.filter(n=>filter==='all'||status(n)===filter);
+    if(!shown.length)return'';return `<details data-g="${gi}" ${closed.has(String(gi))?'':'open'}><summary><span>${gi+1}. ${esc(g.label)}</span><small>${d}/${list.length}</small></summary>${shown.map(row).join('')}</details>`}).join('')||'<p class="empty">Nic neodpovídá filtru.</p>';
+}
+async function load(){
+  try{const r=await fetch(`${DB}?pageSize=300`,{cache:'no-store'});if(!r.ok)throw 0;const docs=(await r.json()).documents||[];const next={};
+    for(const d of docs){const id=d.name.split('/').pop(),f=d.fields||{};if(questions[id-1])next[id]={answer:f.answer?.stringValue||'',changedAt:f.changedAt?.stringValue||''}}
+    const sig=JSON.stringify(next);if(sig!==last){last=sig;answers=next;render()}
+    $('dot').className='dot on';$('live').textContent='Živě · '+new Date().toLocaleTimeString('cs-CZ');
+  }catch{$('dot').className='dot err';$('live').textContent='Nelze načíst – zkouším znovu'}
+}
+$('filters').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;filter=b.dataset.f;document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));render()});
+$('groups').addEventListener('toggle',e=>{const d=e.target;d.open?closed.delete(d.dataset.g):closed.add(d.dataset.g)},true);
+render();load();setInterval(load,5000);
+})();
+</script></body></html>
