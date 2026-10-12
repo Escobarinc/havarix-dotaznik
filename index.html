@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#071727" />
+  <title>HAVARIX — Dotazník pro návrh půjčovny</title>
+  <meta name="description" content="39 otázek pro návrh webu a systému půjčovny na míru." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="HAVARIX domů">HAVARI<span>X</span></a>
+      <nav class="nav-links" aria-label="Hlavní navigace">
+        <a href="#questionnaire">Dotazník</a>
+        <a href="#areas">Oblasti</a>
+        <a href="#how">Jak to funguje</a>
+      </nav>
+      <a class="phone-cta" href="#questionnaire" aria-label="Začít dotazník">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8 9.72a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.84.29 1.72.5 2.61.62A2 2 0 0 1 22 16.9z"/></svg>
+        Začít dotazník
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-wrap">
+        <div class="hero-copy">
+          <div class="eyebrow">PLÁNOVÁNÍ PŮJČOVNY</div>
+          <h1>Dotazník pro<br><span>návrh půjčovny</span></h1>
+          <p>Vyplňte 39 otázek online a pomozte nám navrhnout web a půjčovní systém přesně podle vašeho reálného provozu. Odpovědi se průběžně ukládají v tomto zařízení.</p>
+          <div class="hero-actions">
+            <a href="#questionnaire" class="btn btn-red">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h6M9 13h8M9 17h8M9 9h3"/></svg>
+              Začít vyplňovat
+              <span>→</span>
+            </a>
+            <a href="#how" class="btn btn-ghost">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg>
+              Jak to funguje?
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-features" aria-label="Výhody dotazníku">
+          <div class="hero-feature">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><strong>39 otázek</strong><span>Vyplníte vlastním tempem</span></div>
+          </div>
+          <div class="hero-feature">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 2 3-.5 1 3 3 1-1 3 1.5 2.5-2.5 2-1 3-3-.5-2 2-2-2-3 .5-1-3-3-1 1-3L3 11l2.5-2L5 5.5l3 .5 2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div><strong>Návrh na míru</strong><span>Podle potřeb a provozu</span></div>
+          </div>
+          <div class="hero-feature">
+            <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h8l4 4v16H7z"/><path d="M15 2v5h5M10 12h6M10 16h6"/></svg></div>
+            <div><strong>Nezávazné</strong><span>Pomůže určit správný rozsah</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="questionnaire" class="questionnaire-wrap" aria-label="Dotazník">
+      <div class="question-shell">
+        <aside class="steps-panel" aria-label="Sekce dotazníku">
+          <div class="steps-head">
+            <div class="steps-row"><strong>Váš pokrok</strong><span id="sidePercent">0 %</span></div>
+            <div class="mini-progress"><span id="sideProgress"></span></div>
+          </div>
+          <div id="stepNav" class="step-nav"></div>
+          <div class="save-state">
+            <span class="save-dot" id="saveDot"></span>
+            <span id="saveState">Odpovědi se ukládají</span>
+          </div>
+        </aside>
+
+        <section class="question-panel">
+          <div class="question-topline">
+            <strong id="questionCounter">Otázka 1 z 39</strong>
+            <div class="question-progress"><span id="questionProgress"></span></div>
+            <span class="time-estimate">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              přibližně 15–20 min
+            </span>
+          </div>
+
+          <div id="questionContent" class="question-content"></div>
+
+          <div class="custom-note">
+            <label for="customNote">Vlastní doplnění</label>
+            <textarea id="customNote" rows="3" placeholder="Doplňte cokoli, co je pro vás důležité…"></textarea>
+          </div>
+
+          <div class="question-actions">
+            <button id="prevBtn" type="button" class="btn-nav btn-prev">← Předchozí</button>
+            <button id="skipBtn" type="button" class="btn-nav btn-skip">Přeskočit</button>
+            <button id="nextBtn" type="button" class="btn-nav btn-next">Další otázka <span>→</span></button>
+          </div>
+        </section>
+
+        <aside class="help-panel">
+          <div class="help-copy">
+            <div class="help-title">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.2 14.8A7 7 0 1 1 16 14.5c-1.2.9-1.8 1.8-1.8 3.5h-4c0-1.5-.6-2.4-2-3.2z"/></svg>
+              <strong>Proč se ptáme?</strong>
+            </div>
+            <p id="whyText"></p>
+          </div>
+          <img src="assets/equipment.jpg" alt="Profesionální vysoušecí technika" width="700" height="380" />
+        </aside>
+      </div>
+    </section>
+
+    <section id="how" class="benefits-wrap">
+      <div class="benefit benefit-red">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="m15 9 5-5M17 4h3v3"/></svg></div>
+        <div><strong>Rychlé vyplnění</strong><span>39 cílených otázek. Většina klientů je zvládne během 15–20 minut.</span></div>
+      </div>
+      <div class="benefit benefit-blue">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v6h6M9 13h8M9 17h8"/></svg></div>
+        <div><strong>Jasný rozsah projektu</strong><span>Z odpovědí bude jasné, které funkce dávají smysl a které ne.</span></div>
+      </div>
+      <div class="benefit benefit-dark">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/></svg></div>
+        <div><strong>Bez zbytečných funkcí</strong><span>Řešení se nastaví podle reálné velikosti půjčovny, provozu a potřeb.</span></div>
+      </div>
+    </section>
+
+    <section id="areas" class="areas-wrap">
+      <div class="areas-heading">
+        <div><span>CO VŠE PROBEREME</span><h2>Hlavní oblasti dotazníku</h2></div>
+        <p>Dotazník pokrývá všechny klíčové oblasti budoucí půjčovny.</p>
+      </div>
+      <div class="areas-grid">
+        <div class="area"><b>01</b><span>Dostupnost<br>a provoz</span></div>
+        <div class="area"><b>02</b><span>Sortiment<br>a technika</span></div>
+        <div class="area"><b>03</b><span>Pobočky<br>a sklady</span></div>
+        <div class="area"><b>04</b><span>Rezervace<br>a objednávky</span></div>
+        <div class="area"><b>05</b><span>Ceny<br>a platby</span></div>
+        <div class="area"><b>06</b><span>Smlouvy<br>a dokumenty</span></div>
+        <div class="area"><b>07</b><span>Zákazníci<br>a účty</span></div>
+        <div class="area"><b>08</b><span>Statistiky<br>a reporting</span></div>
+        <div class="area"><b>09</b><span>Doprava<br>a logistika</span></div>
+        <div class="area"><b>10</b><span>Co určitě<br>nechcete</span></div>
+      </div>
+    </section>
+
+    <section id="finishPanel" class="finish-panel hidden" aria-live="polite">
+      <div class="finish-card">
+        <div class="finish-badge">DOKONČENO</div>
+        <h2>Děkujeme. Zbývá nám odpovědi poslat.</h2>
+        <p>Odpovědi zůstávají uložené v tomto prohlížeči. Stáhněte si je prosím níže a pošlete nám je jako soubor — samy se neodesílají.</p>
+        <div class="client-grid">
+          <label>Firma / jméno<input id="clientName" type="text" autocomplete="organization" placeholder="Např. ABC Stavby s.r.o." /></label>
+          <label>E-mail<input id="clientEmail" type="email" autocomplete="email" placeholder="vas@email.cz" /></label>
+          <label>Telefon<input id="clientPhone" type="tel" autocomplete="tel" placeholder="+420 777 123 456" /></label>
+        </div>
+        <div class="finish-actions">
+          <button id="downloadTxt" type="button" class="btn btn-red">Stáhnout odpovědi TXT</button>
+          <button id="downloadJson" type="button" class="btn btn-blue">Stáhnout JSON</button>
+          <button id="printBtn" type="button" class="btn btn-light">Vytisknout / PDF</button>
+          <button id="backBtn" type="button" class="btn btn-light">Vrátit se k otázkám</button>
+        </div>
+        <textarea id="summaryText" rows="18" readonly aria-label="Souhrn odpovědí"></textarea>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-wrap">
+      <div class="footer-brand"><strong>HAVARI<span>X</span></strong><small>Dotazník pro návrh půjčovny</small></div>
+      <div class="footer-links"><a href="#questionnaire">Dotazník</a><a href="#areas">Oblasti</a><a href="#how">Jak to funguje</a></div>
+      <a href="#questionnaire" class="footer-cta">Začít vyplňovat →</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
